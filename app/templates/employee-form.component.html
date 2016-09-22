@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Employee Form</h1>
+    {{model.name}}
+    <form (ngSubmit) = "onSubmit()" #employeeForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control"
+          [(ngModel)] = "model.name" name="name">
+      </div>
+      <div class="form-group">
+        <label for="numberOfDays">Number of Days</label>
+        <input type="text" class="form-control"
+          [(ngModel)] = "model.numberOfDays" name="numberOfDays">
+      </div>
+      <div class="form-group">
+        <label for="vacationMotivation">Vacation Motivation</label>
+        <input type="text" class="form-control" id="vacationMotivation"
+          [(ngModel)] = "model.vacationMotivation" name="vacationMotivation">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
