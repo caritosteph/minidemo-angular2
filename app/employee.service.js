@@ -10,21 +10,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-require('rxjs/add/operator/map');
-var PeopleService = (function () {
-    function PeopleService(http) {
+var http_2 = require('@angular/http');
+var Observable_1 = require('rxjs/Observable');
+var EmployeeService = (function () {
+    function EmployeeService(http) {
         this.http = http;
+        this.headers = new http_2.Headers();
+        this.headers.append('Content-Type', 'application/json');
+        this.headers.append('Authorization', 'Basic ' + btoa('jcarlos:jcarlos'));
     }
-    PeopleService.prototype.getEmployee = function () {
-        URL = 'http:10.50.21.145:8081/';
-        return http.get('URL')
-            .map(function (response) { return response.json(); });
+    EmployeeService.prototype.addEmployee = function (employee) {
+        var body = JSON.stringify(employee);
+        console.log("body: ", body);
+        return this.http.post('http://10.50.24.61:8081/start-vacation-process', body, { headers: this.headers })
+            .map(this.extractData)
+            .catch(this.handleError);
     };
-    PeopleService = __decorate([
+    EmployeeService.prototype.extractData = function (res) {
+        var body = res.json();
+        console.log("respose: ", body.data);
+        return body.data || {};
+    };
+    EmployeeService.prototype.handleError = function (error) {
+        // In a real world app, we might use a remote logging infrastructure
+        // We'd also dig deeper into the error to get a better message
+        var errMsg = (error.message) ? error.message :
+            error.status ? error.status + " - " + error.statusText : 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable_1.Observable.throw(errMsg);
+    };
+    EmployeeService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], PeopleService);
-    return PeopleService;
+    ], EmployeeService);
+    return EmployeeService;
 }());
-exports.PeopleService = PeopleService;
+exports.EmployeeService = EmployeeService;
 //# sourceMappingURL=employee.service.js.map

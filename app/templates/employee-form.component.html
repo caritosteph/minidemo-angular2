@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Employee Form</h1>
-    <form (ngSubmit) = "onSubmit()" #employeeForm="ngForm">
+    <form (ngSubmit) = "onSubmit(model)" #employeeForm="ngForm">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control"

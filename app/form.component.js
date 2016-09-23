@@ -10,15 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var employee_1 = require('./employee');
-var http_1 = require('@angular/http');
+var employee_service_1 = require('./employee.service');
 var EmployeeComponent = (function () {
-    function EmployeeComponent(http) {
-        this.http = http;
+    function EmployeeComponent(employeeService) {
+        this.employeeService = employeeService;
         this.model = new employee_1.Employee('Jean', '30', 'FreeTime');
         this.submitted = false;
     }
-    EmployeeComponent.prototype.onSubmit = function () {
+    EmployeeComponent.prototype.addEmployee = function (model) {
+        var _this = this;
+        if (!model)
+            return;
+        this.employeeService.addEmployee(model)
+            .subscribe(function (employee) { return _this.employees.push(employee); }, function (error) { return _this.errorMessage = error; });
+    };
+    EmployeeComponent.prototype.onSubmit = function (model) {
         this.submitted = true;
+        this.addEmployee(model);
     };
     Object.defineProperty(EmployeeComponent.prototype, "diagnostic", {
         get: function () {
@@ -30,10 +38,10 @@ var EmployeeComponent = (function () {
     EmployeeComponent = __decorate([
         core_1.Component({
             selector: 'employee-form',
-            templateUrl: 'app/templates/employee-form.component.html'
-        }),
-        Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+            templateUrl: 'app/templates/employee-form.component.html',
+            providers: [employee_service_1.EmployeeService]
+        }), 
+        __metadata('design:paramtypes', [employee_service_1.EmployeeService])
     ], EmployeeComponent);
     return EmployeeComponent;
 }());
