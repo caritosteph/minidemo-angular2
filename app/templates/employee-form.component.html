@@ -1,6 +1,5 @@
 <div class="container">
     <h1>Employee Form</h1>
-    {{model.name}}
     <form (ngSubmit) = "onSubmit()" #employeeForm="ngForm">
       <div class="form-group">
         <label for="name">Name</label>
@@ -17,6 +16,22 @@
         <input type="text" class="form-control" id="vacationMotivation"
           [(ngModel)] = "model.vacationMotivation" name="vacationMotivation">
       </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-success" [disabled]="!employeeForm.form.valid">Submit</button>
     </form>
+</div>
+<div [hidden]="!submitted">
+  <h2>You submitted the following:</h2>
+  <div class="row">
+    <div class="col-xs-3">Name</div>
+    <div class="col-xs-9  pull-left">{{ model.name }}</div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">Number of Days</div>
+    <div class="col-xs-9 pull-left">{{ model.numberOfDays }}</div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">Vacation Motivation</div>
+    <div class="col-xs-9 pull-left">{{ model.vacationMotivation }}</div>
+  </div>
+  <br>
 </div>

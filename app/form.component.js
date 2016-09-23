@@ -10,8 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var employee_1 = require('./employee');
+var http_1 = require('@angular/http');
 var EmployeeComponent = (function () {
-    function EmployeeComponent() {
+    function EmployeeComponent(http) {
+        this.http = http;
         this.model = new employee_1.Employee('Jean', '30', 'FreeTime');
         this.submitted = false;
     }
@@ -29,8 +31,9 @@ var EmployeeComponent = (function () {
         core_1.Component({
             selector: 'employee-form',
             templateUrl: 'app/templates/employee-form.component.html'
-        }), 
-        __metadata('design:paramtypes', [])
+        }),
+        Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
     ], EmployeeComponent);
     return EmployeeComponent;
 }());
